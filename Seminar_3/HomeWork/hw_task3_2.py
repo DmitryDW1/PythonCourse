@@ -6,11 +6,14 @@
 Последняя строка содержит число X
 '''
 
-numbers = [input('Введите несколько чисел: ') for i in range(int(input('Введите количество элементов в массиве:')))]
+numbers = [int(input('Введите несколько чисел: ')) for i in range(int(input('Введите количество элементов в массиве:')))]
 print(numbers)
-x = input('Введите искомое число x: ')
-for i in range(len(numbers)):
-    for j in range(i):
-        if numbers[i] < x:
-            numbers[j] = numbers[i]
-print(numbers[j])
+x = int(input('Введите искомое число x: '))
+near_max = len(numbers) - len(numbers)                      
+for i in range(0, len(numbers) - 1):
+    if numbers[i] < x and numbers[i] > near_max:
+        near_max = numbers[i]
+print(near_max)
+
+# near_max = [abs(numbers[i] - x) for i in range(len(numbers))]
+# print(numbers[near_max.index(min(near_max))])
