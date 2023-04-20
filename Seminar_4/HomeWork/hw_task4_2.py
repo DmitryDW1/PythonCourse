@@ -14,17 +14,17 @@ n = int(input('Сколько кустов растёт на грядке: '))
 bush = list(int(input('Введите количество ягод на кусте: ')) for i in range(n))
 print(bush)
 sum_max = dict()
-for i in range(-1, len(bush)-1): sum_max[len(bush) - 1 - i] = (bush[i - 1] + bush[i] + bush[i + 1])
+for i in range(-1, len(bush)-1): sum_max[i] = (bush[i - 1] + bush[i] + bush[i + 1])
 print(sum_max)
-print(f'Максимальное число ягод: {max(sum_max.values())} можно собрать, находясь перед {max(sum_max, key=sum_max.get)}-м кустом')
+print(f'Максимальное число ягод: {max(sum_max.values())} можно собрать, находясь перед {list(sum_max).index(max(sum_max, key=sum_max.get))}-м кустом')
 
 # import random
 # n = int(input('Сколько кустов растёт на грядке: '))
 # bush = list(random.randint(0, 15) for i in range(n))
 # print(bush)
 # sum_max = dict()
-# for i in range(-1, len(bush)-1): sum_max[len(bush) - 1 - i] = (bush[i - 1] + bush[i] + bush[i + 1])
+# for i in range(-1, len(bush)-1): sum_max[i] = (bush[i - 1] + bush[i] + bush[i + 1])
 # print(sum_max)
-# print(f'Максимальное число ягод: {max(sum_max.values())} можно собрать, находясь перед {max(sum_max, key=sum_max.get)}-м кустом')
+# print(f'Максимальное число ягод: {max(sum_max.values())} можно собрать, находясь перед {list(sum_max).index(max(sum_max, key=sum_max.get))}-м кустом')
 
 
