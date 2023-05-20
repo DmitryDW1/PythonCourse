@@ -14,8 +14,9 @@ transormed_values = list(map(transformation, values))
 
 '''
 
-transformation = lambda x: x
+
 values = [1, 23, 42, 'asdfg']
+transformation = lambda x: values[x]*2 in range(len(values)) - 1
 transformed_values = list(map(transformation, values))
 if values == transformed_values:
  print('ok')

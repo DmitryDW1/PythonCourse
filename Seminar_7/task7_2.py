@@ -21,7 +21,7 @@ find_farthest_orbit(list_of_orbits), которая среди списка ор
 '''
 import  math
 def find_farthest_orbit(orbits):
-    s_orbits = {math.pi *val[0] * val[1]: val for val in orbits if val[0] != val[1]}
+    s_orbits = {math.pi * value[0] * value[1]: value for value in orbits if value[0] != value[1]}
     return max(s_orbits.items())
 orbits = [(1, 3), (2.5, 10), (7, 2), (6, 6), (4, 3)]
 print(find_farthest_orbit(orbits))
