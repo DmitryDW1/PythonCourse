@@ -16,3 +16,10 @@ if same_by(lambda x: x % 2, values):
     print('same')
 else:
     print('different')
+    
+# def same_by(f, a):
+#     for i in a:
+#         if f(i):
+#             return False
+#     else: 
+#         return True
