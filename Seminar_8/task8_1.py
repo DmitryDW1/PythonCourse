@@ -18,7 +18,8 @@
 
 from os import path
 
-file_base = "base.txt"
+file_base = 'base.txt'
+temp_file_base = 'temp_file_base.txt'
 all_data = []
 last_id = 0
 
@@ -79,23 +80,66 @@ def search_records():
                         print(line)
             case _:
                 print("Try again!\n")
+
+        f.readline()
            
 def change_records():
-    with open (file_base, 'r+') as f:
+    with open(file_base, 'r+', encoding="utf-8") as f1, open(temp_file_base, 'w', encoding="utf-8") as f2:
+
         answer_change = input('Замена:\n'
                             '1. Фамилия\n'
                             '2. Номер телефона\n')
         match answer_change:
             case '1':
+                lines1 = f1.readlines()
                 change_family_user = family_user()
-                for line in f:
+                for line in lines1:
                     if change_family_user in line:
-                        old_data = f.readline()
+                        old_data = line
                         new_data = old_data.replace(change_family_user, family_user())
-                        f.write(new_data)
+                        f2.write(new_data)
+                    else: f2.write(line)
+            case '2':
+                lines1 = f1.readlines()
+                change_phone_number_user = phone_number_user()
+                for line in lines1:
+                    if change_phone_number_user in line:
+                        old_data = line
+                        new_data = old_data.replace(change_phone_number_user, phone_number_user())
+                        f2.write(new_data)
+                    else: f2.write(line)
             case _:
                 print("Try again!\n")
+    with open(file_base, 'w', encoding="utf-8") as f1, open(temp_file_base, 'r', encoding="utf-8") as f2:
+        lines2 = f2.readlines()
+        for line in lines2:
+            f1.write(line)
 
+def delete_records():
+    with open(file_base, 'r+', encoding="utf-8") as f1, open(temp_file_base, 'w', encoding="utf-8") as f2:
+
+        answer_change = input('Удаление:\n'
+                            '1. Фамилия\n'
+                            '2. Номер телефона\n')
+        match answer_change:
+            case '1':
+                lines1 = f1.readlines()
+                del_family_user = family_user()
+                for line in lines1:
+                    if del_family_user not in line:
+                        f2.write(line)
+            case '2':
+                lines1 = f1.readlines()
+                del_phone_number_user = family_user()
+                for line in lines1:
+                    if del_phone_number_user not in line:
+                        f2.write(line)
+            case _:
+                print("Try again!\n")
+    with open(file_base, 'w', encoding="utf-8") as f1, open(temp_file_base, 'r', encoding="utf-8") as f2:
+        lines2 = f2.readlines()
+        for line in lines2:
+            f1.write(line)
 
 def main_menu():
     work = True
@@ -119,7 +163,7 @@ def main_menu():
             case "4":
                 change_records()
             case "5":
-                pass
+                delete_records()
             case "6":
                 pass
             case "7":
