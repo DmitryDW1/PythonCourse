@@ -17,9 +17,12 @@
 '''
 
 from os import path
+import pandas as pd
 
 file_base = 'base.txt'
 temp_file_base = 'temp_file_base.txt'
+file_log_csv = 'log.csv'
+file_test_export = 'test.txt'
 all_data = []
 last_id = 0
 
@@ -27,14 +30,14 @@ if not path.exists(file_base):
     with open(file_base, "w", encoding="utf-8") as _:
         pass
 
-def read_records():
+def read_records(): # Не работает last_id:( Как допилить??? Решено!
     global all_data, last_id
 
     with open(file_base, encoding="utf-8") as f:
         all_data = [i.strip() for i in f]
-        # if all_data:
-        #     last_id = int(all_data[-1].split()[0])
-        #     return all_data
+        if all_data:
+            last_id = int(all_data[-1].split()[0])
+            return all_data
         return []
 
 def show_all():
@@ -56,10 +59,11 @@ def phone_number_user():
     return input('Введите номер телефона: ')
 
 def add_records():
+    global last_id
     with open(file_base, 'a', encoding="utf-8") as f:
-        new_user = (family_user() + ' ' +
-                    first_name_user() + ' ' + last_name_user() + ' ' + 
-                    phone_number_user() + '\n')
+        last_id += 1
+        new_user = (f'{last_id} {family_user()} {first_name_user()} '
+                    f'{last_name_user()} {phone_number_user()}\n')
         f.write(new_user)
 
 def search_records():
@@ -85,7 +89,6 @@ def search_records():
            
 def change_records():
     with open(file_base, 'r+', encoding="utf-8") as f1, open(temp_file_base, 'w', encoding="utf-8") as f2:
-
         answer_change = input('Замена:\n'
                             '1. Фамилия\n'
                             '2. Номер телефона\n')
@@ -117,7 +120,6 @@ def change_records():
 
 def delete_records():
     with open(file_base, 'r+', encoding="utf-8") as f1, open(temp_file_base, 'w', encoding="utf-8") as f2:
-
         answer_change = input('Удаление:\n'
                             '1. Фамилия\n'
                             '2. Номер телефона\n')
@@ -140,6 +142,20 @@ def delete_records():
         lines2 = f2.readlines()
         for line in lines2:
             f1.write(line)
+
+def import_export_records():
+    answer_search = input('Импорт/Экспорт данных:\n'
+                              '1. Импорт\n'
+                              '2. Экспорт\n')
+    match answer_search:
+        case '1':
+            df = pd.read_table(file_base)
+            df.to_csv(file_log_csv)
+        case '2':
+            csv = pd.read_csv(file_log_csv)
+            csv.to_string(file_test_export)
+        case _:
+            print("Try again!\n")
 
 def main_menu():
     work = True
@@ -165,7 +181,7 @@ def main_menu():
             case "5":
                 delete_records()
             case "6":
-                pass
+                import_export_records()
             case "7":
                 work = False
             case _:
