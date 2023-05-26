@@ -12,18 +12,6 @@
 Вывод:
 Парам пам-пам
 '''
-# def good_chant(text):
-    
-#         return sum(1 for i in text if i in 'аеёиоуыэюя')
-    
-# text_chant = input().lower().split()
-# ritm = good_chant(text_chant[0])
-
-# if all([ritm(i) == ritm for i in text_chant]):
-
-#     print('Парам пам-пам')
-# else:
-#     print('Пам парам')
 
 '''
 answer = [len(list(filter(lambda x: x in 'аеёиоуыэюя', chant))) for chant in input()lower().split()]
