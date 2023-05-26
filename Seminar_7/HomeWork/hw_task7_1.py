@@ -24,21 +24,17 @@
 #     print('Парам пам-пам')
 # else:
 #     print('Пам парам')
+
+'''
+answer = [len(list(filter(lambda x: x in 'аеёиоуыэюя', chant))) for chant in input()lower().split()]
+print('Парам пам-пам' if all(x == answer[0] for x in answer) else 'Пам парам')
+'''
+
 def good_chant(text_chant):
-    
         return sum(1 for i in text_chant if i in vowels)
     
-def chars(text_chant):
-    for i in text_chant:
-        for j in i:
-            if (chr(j) in vowels) and (chr(j+1) in vowels) in str(i):
-                return True
 text_chant = input().lower().split()
 vowels = 'аеёиоуыэюя'
-consonant = 'бвгджзклмнпрстфхцчшщ'
-syllable = chars(i for i in text_chant)
-chant = all([good_chant(i) == good_chant(text_chant[0]) for i in text_chant])
-if chars(syllable and chant):
+if all([good_chant(i) == good_chant(text_chant[0]) for i in text_chant]):
     print('Парам пам-пам')
-else:
-    print('Пам парам')
+else: print('Пам парам')
